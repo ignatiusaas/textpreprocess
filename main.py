@@ -1,33 +1,35 @@
-import extractPDF as pdf
+import os
+import glob
 import sastrawi as stw
-from nltk.corpus import stopwords
-import string
+import extractPDF as pdf
+import tokenPDF as tkn
 
-#nltk.download()
+i = 0
 
-#Get PDF
-ePDF = pdf.pagehandle.extract_text()
+#Get input path
+path = os.getcwd()+'\\input\*'
 
-#Case Folding
-ePDF = ePDF.lower()
+#Main code
+for filepath in glob.glob(path):
 
-#Tokenize
-ePDF = ePDF.strip()
-ePDF = ePDF.translate(str.maketrans("","",'1234567890'))
-ePDF = ePDF.translate(str.maketrans("","", string.punctuation))
+    #Open input path
+    print(filepath)
+    fp= open(filepath, 'rb')
+    
+    #Get PDF
+    ePDF = pdf.convert_pdf_to_txt(fp)
 
-stop_words = set(stopwords.words('indonesian'))
-from nltk.tokenize import word_tokenize
-tokens = word_tokenize(ePDF)
-ePDF = [i for i in tokens if not i in stop_words]
+    #Tokenize
+    ePDF = tkn.tokenPDF(ePDF)
 
-#Stemming
-ePDF = [stw.stemmer.stem(tokens) for tokens in ePDF]
+    #Stemming
+    ePDF = [stw.stemmer.stem(tokens) for tokens in ePDF]
 
-#Print test
-#print(ePDF)
+    #Print test
+    #print(ePDF)
 
-#Export output
-ouput = open("output.txt", "w")
-ouput.write(' '.join(ePDF))
-ouput.close
+    #Export output
+    ouput = open(os.getcwd()+'\\output\output'+str(i)+'.txt', "w")
+    ouput.write(' '.join(ePDF))
+    ouput.close
+    i = i + 1
