@@ -1,0 +1,77 @@
+#import PyPDF2
+import os
+import glob
+from nltk.corpus import stopwords
+import string
+from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
+from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
+from pdfminer.converter import TextConverter
+from pdfminer.layout import LAParams
+from pdfminer.pdfpage import PDFPage
+from io import StringIO
+
+i = 0
+
+#Get input path
+path = os.getcwd()+'\\input\*'
+
+#Main code
+for filepath in glob.glob(path):
+
+    #Open input path
+    print(filepath)
+    fp= open(filepath, 'rb')
+    # pdfReader = PyPDF2.PdfFileReader(fhandle)
+    # pagehandle = pdfReader.getPage(0)
+    
+    #Test print
+    #print(pagehandle.extractText())
+    #nltk.download()
+
+    #Extracting all PDF into string
+    rsrcmgr = PDFResourceManager()
+    retstr = StringIO()
+    codec = 'utf-8'  # 'utf16','utf-8'
+    laparams = LAParams()
+    device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
+    interpreter = PDFPageInterpreter(rsrcmgr, device)
+    password = ""
+    maxpages = 0
+    caching = True
+    pagenos = set()
+    for page in PDFPage.get_pages(fp, pagenos, maxpages=maxpages, password=password, caching=caching, check_extractable=True):
+        interpreter.process_page(page)
+    fp.close()
+    device.close()
+    ePDF = retstr.getvalue()
+    retstr.close()
+
+    #Get PDF
+    #ePDF = pagehandle.extract_text()
+
+    #Case Folding
+    ePDF = ePDF.lower()
+
+    #Tokenize
+    ePDF = ePDF.strip()
+    ePDF = ePDF.translate(str.maketrans("","",'1234567890'))
+    ePDF = ePDF.translate(str.maketrans("","", string.punctuation))
+
+    stop_words = set(stopwords.words('indonesian'))
+    from nltk.tokenize import word_tokenize
+    tokens = word_tokenize(ePDF)
+    ePDF = [i for i in tokens if not i in stop_words]
+
+    #Stemming
+    factory = StemmerFactory()
+    stemmer = factory.create_stemmer()
+    ePDF = [stemmer.stem(tokens) for tokens in ePDF]
+
+    #Print test
+    #print(ePDF)
+
+    #Export output
+    ouput = open(os.getcwd()+'\\output\output'+str(i)+'.txt', "w")
+    ouput.write(' '.join(ePDF))
+    ouput.close
+    i = i + 1
