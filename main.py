@@ -3,11 +3,18 @@ import glob
 import sastrawi as stw
 import extractPDF as pdf
 import tokenPDF as tkn
+import key as anskey
+
+import time
+start_time = time.time()
 
 i = 0
 
-#Get input path
-path = os.getcwd()+'\\input\*'
+#Process key
+anskey.processKey(anskey.getKey())
+
+#Get answer path
+path = os.getcwd()+'\\answer\*'
 
 #Main code
 for filepath in glob.glob(path):
@@ -33,3 +40,4 @@ for filepath in glob.glob(path):
     ouput.write(' '.join(ePDF))
     ouput.close
     i = i + 1
+print("--- %s seconds ---" % (time.time() - start_time))
