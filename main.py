@@ -38,8 +38,11 @@ for filepath in glob.glob(pathPDF):
     #Tokenize
     ePDF = tkn.tokenPDF(ePDF,file_name)
 
+    #Lemmatizing
+    ePDF = tkn.ligma(ePDF)
+
     #Stemming
-    ePDF = [stw.stemmer.stem(tokens) for tokens in ePDF]
+    #ePDF = [stw.stemmer.stem(tokens) for tokens in ePDF]
 
     #Export output
     ouput = open(os.getcwd()+'\\output\\'+str(file_name)+'.txt', "w")

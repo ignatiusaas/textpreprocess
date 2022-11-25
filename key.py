@@ -23,8 +23,11 @@ def processKey(path):
         #Tokenize
         ePDF = tkn.tokenPDF(ePDF, fn = 'Ligma')
 
+        #Lemmatizing
+        ePDF = tkn.ligma(ePDF)
+
         #Stemming
-        ePDF = [stw.stemmer.stem(tokens) for tokens in ePDF]
+        #ePDF = [stw.stemmer.stem(tokens) for tokens in ePDF]
 
         #Export output
         ouput = open(os.getcwd()+'\\key\key'+'.txt', "w")
