@@ -6,7 +6,7 @@ import tokenPDF as tkn
 
 #Get key path
 def getKey():
-    path = os.getcwd()+'\\key\*'
+    path = os.getcwd()+'\\key\*.pdf'
     return(path)
 
 def processKey(path):
@@ -18,16 +18,13 @@ def processKey(path):
         fp= open(filepath, 'rb')
         
         #Get PDF
-        ePDF = pdf.convert_pdf_to_txt(fp)
+        ePDF = pdf.extractPDF(fp)
 
         #Tokenize
-        ePDF = tkn.tokenPDF(ePDF)
+        ePDF = tkn.tokenPDF(ePDF, fn = 'Ligma')
 
         #Stemming
         ePDF = [stw.stemmer.stem(tokens) for tokens in ePDF]
-
-        #Print test
-        #print(ePDF)
 
         #Export output
         ouput = open(os.getcwd()+'\\key\key'+'.txt', "w")
