@@ -1,9 +1,11 @@
-from nltk.stem import WordNetLemmatizer
+#from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 from nlp_id.lemmatizer import Lemmatizer
 from nltk.tokenize import word_tokenize
 
 import string
+
+blacklist = ['nim', 'fakultas', 'ugm', 'nama', 'prodi', 'studi', 'tk', 'teknik', 'elektro', 'informatika', 'biomedis', 'te', 'ft', 'ti', 'tif', 'tb', 'tetitb', 'tugas', 'quiz', 'kuis']
 
 def tokenPDF(ePDF,fn):
     #Case Folding
@@ -30,6 +32,9 @@ def tokenPDF(ePDF,fn):
 
     #Remove name
     ePDF = [i for i in ePDF if not i in fn]
+
+    #Remove trash from this world
+    ePDF = [i for i in ePDF if not i in blacklist]
 
     #Remove dupe clause
     ePDF = list(dict.fromkeys(ePDF))
