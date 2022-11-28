@@ -19,7 +19,7 @@ def tokenPDF(ePDF,fn):
 
     ePDF = ePDF.strip()
     ePDF = ePDF.translate(str.maketrans("","",'1234567890'))
-    ePDF = ePDF.translate(str.maketrans("","", string.punctuation))
+    ePDF = ePDF.translate(str.maketrans(string.punctuation, ' '*len(string.punctuation)))
 
     #LemmatizeEng
     # lemmatizerEng = WordNetLemmatizer()

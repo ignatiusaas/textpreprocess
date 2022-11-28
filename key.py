@@ -1,6 +1,6 @@
 import os
 import glob
-import sastrawi as stw
+#import sastrawi as stw
 import extractPDF as pdf
 import tokenPDF as tkn
 

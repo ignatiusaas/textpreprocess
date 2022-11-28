@@ -2,6 +2,7 @@ from docx2pdf import convert
 import glob
 import os
 from win32com.client import Dispatch, constants, gencache
+import shutil
 
 def convertDOCX(fp):
     for filepath in glob.glob(fp):
@@ -11,4 +12,4 @@ def convertDOCX(fp):
 
         convert(filepath,os.getcwd()+'\\answer\\')
 
-        os.remove(str(filepath))
+        shutil.move(str(filepath),os.getcwd()+'\\docx\\')
