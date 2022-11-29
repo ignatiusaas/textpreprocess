@@ -1,6 +1,5 @@
 import os
 import glob
-#import sastrawi as stw
 import extractPDF as pdf
 import tokenPDF as tkn
 
@@ -25,9 +24,6 @@ def processKey(path):
 
         #Lemmatizing
         ePDF = tkn.ligma(ePDF)
-
-        #Stemming
-        #ePDF = [stw.stemmer.stem(tokens) for tokens in ePDF]
 
         #Export output
         ouput = open(os.getcwd()+'\\key\key'+'.txt', "w")

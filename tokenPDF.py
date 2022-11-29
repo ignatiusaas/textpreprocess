@@ -1,4 +1,3 @@
-#from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 from nlp_id.lemmatizer import Lemmatizer
 from nltk.tokenize import word_tokenize
@@ -20,10 +19,6 @@ def tokenPDF(ePDF,fn):
     ePDF = ePDF.strip()
     ePDF = ePDF.translate(str.maketrans("","",'1234567890'))
     ePDF = ePDF.translate(str.maketrans(string.punctuation, ' '*len(string.punctuation)))
-
-    #LemmatizeEng
-    # lemmatizerEng = WordNetLemmatizer()
-    # ePDF = [lemmatizerEng.lemmatize(str(token)) for token in ePDF]
 
     #Remove stopwords
     stop_words = set(stopwords.words('indonesian'))
