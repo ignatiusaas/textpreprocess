@@ -32,7 +32,7 @@ def tokenPDF(ePDF,fn):
     ePDF = [i for i in ePDF if not i in blacklist]
 
     #Remove dupe clause
-    ePDF = list(dict.fromkeys(ePDF))
+    #ePDF = list(dict.fromkeys(ePDF))
 
     return(ePDF)
 
