@@ -20,6 +20,7 @@ doc.convertDOCX(pathDOCX)
 #Get PDF answers path
 pathPDF = os.getcwd()+'\\answer\*.pdf'
 
+fn_i = 1
 #Main code
 for filepath in glob.glob(pathPDF):
 
@@ -44,8 +45,9 @@ for filepath in glob.glob(pathPDF):
     #ePDF = [stw.stemmer.stem(tokens) for tokens in ePDF]
 
     #Export output
-    ouput = open(os.getcwd()+'\\output\\'+str(file_name)+'.txt', "w")
+    ouput = open(os.getcwd()+'\\output\\'+ str(fn_i).zfill(3) + "_" + str(file_name)+'.txt', "w")
     ouput.write(' '.join(ePDF))
     ouput.close
+    fn_i += 1
 
 print("--- %s seconds ---" % (time.time() - start_time))
